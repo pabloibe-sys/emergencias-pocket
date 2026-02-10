@@ -5,7 +5,6 @@
   --text-main:#e5e7eb;    /* texto */
   --accent:#22c55e;       /* verde clínico */
 }
-
 body{
   background:var(--bg-main);
   color:var(--text-main);
