@@ -163,3 +163,33 @@ header{ background:var(--bg-header); }
   justify-content:space-between;
   gap:10px;
   padding:12px
+  /* ===== FIX MODAL (detalle) para que no salga negro ===== */
+.modal-back{
+  background: rgba(0,0,0,.35) !important;   /* oscurece suave detrás */
+}
+
+.modal{
+  background: var(--bg-card) !important;    /* mismo color de tarjeta */
+  color: var(--text-main) !important;
+  border: 1px solid rgba(0,0,0,.12) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.2) !important;
+}
+
+.modal-head{
+  background: var(--bg-header) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid rgba(0,0,0,.10) !important;
+}
+
+.modal-body{
+  background: transparent !important;
+  color: var(--text-main) !important;
+}
+
+/* si el texto del detalle está en <pre> o <code> */
+.modal-body pre,
+.modal-body code{
+  background: rgba(0,0,0,.05) !important;
+  color: var(--text-main) !important;
+}
+
