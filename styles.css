@@ -134,7 +134,6 @@ header{ background:var(--bg-header); }
   padding:12px;
   border-radius:16px;
 }
-
 .modal-back{
   position:fixed;
   inset:0;
@@ -167,25 +166,21 @@ header{ background:var(--bg-header); }
 .modal-back{
   background: rgba(0,0,0,.35) !important;   /* oscurece suave detrás */
 }
-
 .modal{
   background: var(--bg-card) !important;    /* mismo color de tarjeta */
   color: var(--text-main) !important;
   border: 1px solid rgba(0,0,0,.12) !important;
   box-shadow: 0 12px 30px rgba(0,0,0,.2) !important;
 }
-
 .modal-head{
   background: var(--bg-header) !important;
   color: var(--text-main) !important;
   border-bottom: 1px solid rgba(0,0,0,.10) !important;
 }
-
 .modal-body{
   background: transparent !important;
   color: var(--text-main) !important;
 }
-
 /* si el texto del detalle está en <pre> o <code> */
 .modal-body pre,
 .modal-body code{
