@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Emergencias Pocket Perú</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#0b5fff" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+
+<body>
+  <header class="top">
+    <h1>Emergencias Pocket</h1>
+    <p>Adulto & Pediatría – Perú</p>
+  </header>
+
+  <main class="wrap">
+    <!-- Buscador -->
+    <div class="search">
+      <input
+        id="q"
+        type="search"
+        placeholder="Buscar enfermedad o síndrome (ej. disnea, asma, shock, convulsión)"
+        autocomplete="off"
+      />
+      <button id="btnClear" title="Limpiar">✕</button>
+    </div>
+
+    <!-- Chips de categorías -->
+    <div id="chips" class="chips"></div>
+
+    <!-- Listado -->
+    <div id="list" class="list"></div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modalBack" class="modal-back">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="mTitle">Detalle</h3>
+        <div class="modal-actions">
+          <button id="btnCopyRP" class="btn small">Copiar RP</button>
+          <button id="btnClose" class="btn ghost small">Cerrar</button>
+        </div>
+      </div>
+      <div id="mContent" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="./app.js"></script>
+</body>
+</html>
