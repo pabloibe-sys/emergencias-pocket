@@ -1075,3 +1075,173 @@ Conducta: Estimar dosis (mg/kg) y tiempo. Soporte + antiemético. Referir a cent
     seguridad:["NAC es tiempo-dependiente; no demorar referencia."]
   }
 ];
+// ===============================
+// UI + BUSCADOR (engancha con index.html)
+// ===============================
+
+const $ = (id) => document.getElementById(id);
+
+function norm(s) {
+  return (s || "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function matches(proto, q) {
+  const nq = norm(q);
+  if (!nq) return false;
+
+  const nombre = norm(proto.nombre);
+  const cat = norm(proto.categoria);
+  const sin = (proto.sinonimos || []).map(norm).join(" ");
+  const cie = (proto.cie10 || []).map(norm).join(" ");
+
+  return (
+    nombre.includes(nq) ||
+    cat.includes(nq) ||
+    sin.includes(nq) ||
+    cie.includes(nq) ||
+    norm(proto.id).includes(nq)
+  );
+}
+
+function renderList(items) {
+  const list = $("list");
+  if (!list) return;
+
+  if (!items.length) {
+    list.innerHTML = `<div class="empty">Sin resultados</div>`;
+    return;
+  }
+
+  list.innerHTML = items
+    .map((p) => {
+      const cie = (p.cie10 || []).join(" · ");
+      return `
+        <button class="card" data-id="${p.id}">
+          <div class="card-title">${p.nombre || p.id}</div>
+          <div class="card-sub">${p.categoria || ""}</div>
+          <div class="card-cie">${cie}</div>
+        </button>
+      `;
+    })
+    .join("");
+
+  // abrir modal al tocar una tarjeta
+  list.querySelectorAll(".card").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-id");
+      const p = PROTO.find((x) => x.id === id);
+      if (p) openModal(p);
+    });
+  });
+}
+
+function openModal(p) {
+  const back = $("modalBack");
+  const title = $("mTitle");
+  const content = $("mContent");
+  if (!back || !title || !content) return;
+
+  title.textContent = p.nombre || p.id;
+
+  const cie = (p.cie10 || []).join(" · ");
+  const rojos = (p.triangulo?.rojos || []).map((x) => `<li>${x}</li>`).join("");
+  const pasos = (p.pasos || [])
+    .map((st) => `<li><b>${st.t}</b>: ${(st.a || []).join(" · ")}</li>`)
+    .join("");
+
+  const calc = p.calc?.rules?.length
+    ? `<h4>Calculadora</h4><ul>${
+        p.calc.rules
+          .map((r) => `<li>${r.label}${r.notes ? ` — ${r.notes}` : ""}</li>`)
+          .join("")
+      }</ul>`
+    : "";
+
+  content.innerHTML = `
+    <div class="modal-block">
+      <div><b>CIE-10:</b> ${cie || "-"}</div>
+      <div style="margin-top:8px"><b>Triángulo:</b> ${p.triangulo?.tipo || "-"}</div>
+      ${rojos ? `<div style="margin-top:8px"><b>Alertas (rojos):</b><ul>${rojos}</ul></div>` : ""}
+      <div style="margin-top:8px"><b>Clave:</b> ${p.triangulo?.clave || "-"}</div>
+      ${pasos ? `<h4>Pasos</h4><ul>${pasos}</ul>` : ""}
+      ${calc}
+      <h4>RP</h4>
+      <pre class="rp">${p.rp || "—"}</pre>
+    </div>
+  `;
+
+  back.style.display = "block";
+
+  const btnClose = $("btnClose");
+  if (btnClose) btnClose.onclick = () => (back.style.display = "none");
+
+  back.onclick = (e) => {
+    if (e.target === back) back.style.display = "none";
+  };
+
+  const btnCopy = $("btnCopyRP");
+  if (btnCopy) {
+    btnCopy.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(p.rp || "");
+        btnCopy.textContent = "Copiado ✅";
+        setTimeout(() => (btnCopy.textContent = "Copiar RP"), 1200);
+      } catch {
+        alert("No se pudo copiar. (Permisos del navegador)");
+      }
+    };
+  }
+}
+
+function buildChips() {
+  const chips = $("chips");
+  if (!chips) return;
+
+  const cats = Array.from(
+    new Set(PROTO.map((p) => p.categoria).filter(Boolean))
+  ).sort();
+
+  chips.innerHTML = `<button class="chip" data-cat="__all">Todo</button>` +
+    cats.map((c) => `<button class="chip" data-cat="${c}">${c}</button>`).join("");
+
+  chips.querySelectorAll(".chip").forEach((b) => {
+    b.addEventListener("click", () => {
+      const cat = b.getAttribute("data-cat");
+      const q = $("q")?.value?.trim() || "";
+      const base = q ? PROTO.filter((p) => matches(p, q)) : PROTO.slice();
+      const filtered = (cat === "__all") ? base : base.filter((p) => p.categoria === cat);
+      renderList(filtered.slice(0, 80));
+    });
+  });
+}
+
+function initUI() {
+  const input = $("q");
+  const btnClear = $("btnClear");
+
+  buildChips();
+  renderList(PROTO.slice(0, 60));
+
+  if (input) {
+    input.addEventListener("input", () => {
+      const q = input.value.trim();
+      const items = q ? PROTO.filter((p) => matches(p, q)) : PROTO.slice();
+      renderList(items.slice(0, 80));
+    });
+  }
+
+  if (btnClear && input) {
+    btnClear.addEventListener("click", () => {
+      input.value = "";
+      renderList(PROTO.slice(0, 60));
+      input.focus();
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initUI);
