@@ -1,22 +1,22 @@
 :root{
-  --bg:#0b1020;
-  --card:#121a33;
-  --muted:#9aa3b2;
-  --text:#eaf0ff;
-  --accent:#0b5fff;
-  --ok:#133b2a;
-  --warn:#3b1e1e;
-  --border:#243055;
+  --bg-main:#0f172a;      /* fondo general (azul oscuro) */
+  --bg-card:#111827;      /* tarjetas */
+  --bg-header:#020617;    /* header */
+  --text-main:#e5e7eb;    /* texto */
+  --accent:#22c55e;       /* verde clínico */
 }
 
-*{ box-sizing:border-box; }
 body{
-  margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, #070b18 0%, var(--bg) 100%);
-  color:var(--text);
+  background:var(--bg-main);
+  color:var(--text-main);
 }
-
+header{
+  background:var(--bg-header);
+}
+.card{
+  background:var(--bg-card);
+  border:1px solid #1f2937;
+}
 .top{
   padding:18px 16px 10px;
   border-bottom:1px solid rgba(255,255,255,.06);
