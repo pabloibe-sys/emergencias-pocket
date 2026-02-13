@@ -188,44 +188,44 @@ header{ background:var(--bg-header); }
   color: var(--text-main) !important;
 }
 /* =========================
-   MODAL (DETALLE) - FIX
+   MODAL (DETALLE) - LIGHT FIX
    ========================= */
 
 /* fondo detrás del modal */
-.modal-back{
-  background: rgba(0,0,0,.35) !important;
+#modalBack{
+  background: rgba(0,0,0,.25) !important;
 }
 
 /* caja del modal */
-.modal-back .modal{
-  background: var(--bg-card) !important;
-  color: var(--text-main) !important;
+#modalBack .modal{
+  background: var(--bg-tarjeta) !important;
+  color: var(--texto-principal) !important;
   border: 1px solid rgba(0,0,0,.12) !important;
   box-shadow: 0 12px 30px rgba(0,0,0,.25) !important;
 }
 
-/* CABECERA: class="cabeza modal"  (clases: .cabeza y .modal) */
-.modal-back .cabeza.modal{
+/* header del modal (class="cabeza modal") */
+#modalBack .cabeza.modal{
   background: var(--bg-header) !important;
-  color: var(--text-main) !important;
+  color: var(--texto-principal) !important;
   border-bottom: 1px solid rgba(0,0,0,.10) !important;
 }
 
-/* CUERPO: class="cuerpo modal" */
-.modal-back .cuerpo.modal{
+/* cuerpo del modal (class="cuerpo modal") */
+#modalBack .cuerpo.modal{
   background: transparent !important;
-  color: var(--text-main) !important;
+  color: var(--texto-principal) !important;
 }
 
-/* textos dentro del contenido */
+/* todo el contenido interno */
 #modalBack #mContenido,
 #modalBack #mContenido *{
-  color: var(--text-main) !important;
+  color: var(--texto-principal) !important;
 }
 
-/* si hay <pre> o <code> (bloques) */
+/* si tienes <pre>/<code> */
 #modalBack pre,
 #modalBack code{
-  background: rgba(0,0,0,.05) !important;
-  color: var(--text-main) !important;
+  background: rgba(0,0,0,.06) !important;
+  color: var(--texto-principal) !important;
 }
