@@ -1,4 +1,4 @@
-const CACHE = "emerg-pocket-v4";
+const CACHE = "emerg-pocket-v5";
 const ASSETS = [
   "./",
   "./index.html",
