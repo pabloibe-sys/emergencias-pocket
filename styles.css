@@ -1,231 +1,279 @@
+/* =========================================================
+   EMERGENCIAS POCKET PERÚ — styles.css (LIGHT)
+   Compatible con index.html:
+   - header.top
+   - main.wrap
+   - input#q + button#btnClear
+   - #chips.chips
+   - #list.list
+   - Modal: #modalBack.modal-back > .modal
+           .cabeza.modal, #mTitulo, .acciones.modales
+           #mContenido.cuerpo.modal
+   ========================================================= */
+
+/* ---------- Tema (variables) ---------- */
 :root{
-  --bg-main:#f3f4f6;     /* fondo claro */
-  --bg-card:#ffffff;     /* tarjetas */
-  --bg-header:#ffffff;   /* header */
-  --text-main:#111827;   /* texto oscuro */
-  --accent:#16a34a;      /* verde */
+  --bg-principal:#f3f4f6;     /* fondo claro */
+  --bg-tarjeta:#ffffff;       /* tarjetas / modal */
+  --bg-header:#ffffff;        /* encabezado */
+  --texto-principal:#111827;  /* texto oscuro */
+  --acento:#16a34a;           /* verde */
+  --muted:#6b7280;            /* gris */
+  --borde:rgba(17,24,39,.12);
+  --sombra:0 10px 24px rgba(17,24,39,.10);
 }
+
+/* ---------- Base ---------- */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 body{
-  background:var(--bg-main);
-  color:var(--text-main);
+  margin:0;
+  background:var(--bg-principal);
+  color:var(--texto-principal);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
-header{ background:var(--bg-header); }
-.card{ background:var(--bg-card); border:1px solid #e5e7eb; }
-}
+
+/* ---------- Header ---------- */
 .top{
-  padding:18px 16px 10px;
-  border-bottom:1px solid rgba(255,255,255,.06);
   position:sticky;
   top:0;
-  background: rgba(255,255,255,.9);
-  backdrop-filter: blur(10px);
   z-index:10;
+  background:rgba(255,255,255,.88);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(17,24,39,.08);
+  padding:16px 16px 10px;
 }
-.top h1{ margin:0; font-size:18px; letter-spacing:.2px; }
-.top p{ margin:6px 0 0; color:var(--muted); font-size:12.5px; }
+.top h1{
+  margin:0;
+  font-size:18px;
+  letter-spacing:.2px;
+}
+.top p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:12.5px;
+}
 
-.wrap{ padding:14px 14px 28px; max-width: 920px; margin:0 auto; }
+/* ---------- Layout ---------- */
+.wrap{
+  padding:14px 14px 28px;
+  max-width:920px;
+  margin:0 auto;
+}
 
+/* ---------- Buscador ---------- */
 .search{
   display:flex;
   gap:10px;
   align-items:center;
-  background: rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;
-  padding:10px 10px;
+  margin:12px 0 12px;
 }
-.search input{
-  width:100%;
-  background: transparent;
-  border:0;
+#q{
+  flex:1;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid var(--borde);
+  background:#fff;
+  color:var(--texto-principal);
   outline:none;
-  color:var(--text);
-  font-size:14.5px;
+}
+#q:focus{
+  border-color: rgba(22,163,74,.45);
+  box-shadow: 0 0 0 4px rgba(22,163,74,.12);
 }
 #btnClear{
-  border:0;
-  background: rgba(255,255,255,.08);
-  color:var(--text);
+  padding:10px 12px;
   border-radius:12px;
-  width:36px;
-  height:36px;
-  font-size:16px;
+  border:1px solid var(--borde);
+  background:#fff;
+  color:var(--texto-principal);
+  cursor:pointer;
 }
+#btnClear:hover{ background:#f9fafb; }
 
+/* ---------- Chips ---------- */
 .chips{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin:14px 0;
+  margin:6px 0 14px;
 }
-.chip{
-  background: rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.10);
-  color:var(--text);
+.chips button{
+  border:1px solid var(--borde);
+  background:#fff;
+  color:var(--texto-principal);
   padding:8px 10px;
   border-radius:999px;
   font-size:12.5px;
+  cursor:pointer;
+}
+.chips button:hover{ background:#f9fafb; }
+.chips button.active{
+  border-color: rgba(22,163,74,.45);
+  background: rgba(22,163,74,.12);
 }
 
-.list{ display:grid; gap:12px; }
-
-.card{
-  background: rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  padding:14px 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.18);
-}
-
-.title{
+/* ---------- Lista ---------- */
+.list{
   display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
+  flex-direction:column;
   gap:10px;
 }
-.title h2{ margin:0; font-size:15.5px; line-height:1.25; }
-.tag{
-  font-size:11px;
-  padding:6px 8px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  color:var(--text);
-  background: rgba(255,255,255,.03);
-  white-space:nowrap;
+.card{
+  background:var(--bg-tarjeta);
+  border:1px solid var(--borde);
+  border-radius:18px;
+  padding:12px 14px;
+  box-shadow: 0 6px 16px rgba(17,24,39,.06);
 }
-
-.muted{ color:var(--muted); font-size:12.8px; line-height:1.35; margin:10px 0 0; }
-
-.row{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
-
-.btn{
-  border:0;
-  background: var(--accent);
-  color:white;
+.card:hover{
+  box-shadow: 0 10px 24px rgba(17,24,39,.10);
+}
+.card h3{
+  margin:0;
+  font-size:14.5px;
+}
+.card .meta{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:12.2px;
+}
+.card .cie{
+  margin-top:6px;
+  color:rgba(17,24,39,.78);
+  font-size:12.3px;
+}
+.card button{
+  margin-top:10px;
   padding:10px 12px;
-  border-radius:14px;
-  font-weight:600;
-  font-size:13px;
+  border-radius:12px;
+  border:1px solid var(--borde);
+  background:#fff;
+  cursor:pointer;
 }
+.card button:hover{ background:#f9fafb; }
+
+/* ---------- Botones genéricos ---------- */
+.btn{
+  border:1px solid var(--borde);
+  background:#fff;
+  color:var(--texto-principal);
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+}
+.btn:hover{ background:#f9fafb; }
+.btn.ok{
+  background:var(--acento);
+  color:#fff;
+  border-color: rgba(0,0,0,.0);
+}
+.btn.ok:hover{ filter:brightness(.98); }
 .btn.ghost{
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.10);
-  color: var(--text);
+  background:#fff;
 }
-.btn.small{ padding:8px 10px; border-radius:12px; font-size:12.5px; }
 
-.section{ margin-top:14px; }
-.section h4{ margin:0 0 8px; font-size:13.5px; color: var(--text); }
-
-.bul{ margin:0; padding-left:18px; color: var(--text); }
-.bul li{ margin:6px 0; color: var(--text); }
-.bul li::marker{ color: rgba(255,255,255,.45); }
-
-.ok{
-  background: rgba(19,59,42,.35);
-  border: 1px solid rgba(45,180,120,.30);
-  padding:12px;
-  border-radius:16px;
-}
-.alert{
-  background: rgba(59,30,30,.35);
-  border: 1px solid rgba(255,110,110,.25);
-  padding:12px;
-  border-radius:16px;
-}
-.modal-back{
+/* ---------- MODAL (tu estructura exacta) ---------- */
+/* capa detrás del modal */
+#modalBack.modal-back{
   position:fixed;
   inset:0;
-  background: rgba(0,0,0,.55);
-  display:none;
+  display:none;              /* JS lo prende */
   align-items:center;
   justify-content:center;
   padding:18px;
-  z-index:50;
+  background: rgba(0,0,0,.25) !important;
+  z-index:999;
 }
-.modal{
+
+/* caja modal */
+#modalBack .modal{
   width:min(920px, 100%);
-  max-height: 86vh;
+  max-height: min(82vh, 760px);
   overflow:auto;
-  background: #0b1020;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:22px;
-  box-shadow: 0 25px 60px rgba(0,0,0,.45);
+  border-radius:18px;
+  background: var(--bg-tarjeta) !important;
+  color: var(--texto-principal) !important;
+  border:1px solid rgba(17,24,39,.14) !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.25) !important;
 }
-.modal-head{
-  position:sticky;
-  top:0;
-  z-index:2;
+
+/* header modal */
+#modalBack .cabeza.modal{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
-  padding:12px
-  /* ===== FIX MODAL (detalle) para que no salga negro ===== */
-.modal-back{
-  background: rgba(0,0,0,.35) !important;   /* oscurece suave detrás */
-}
-.modal{
-  background: var(--bg-card) !important;    /* mismo color de tarjeta */
-  color: var(--text-main) !important;
-  border: 1px solid rgba(0,0,0,.12) !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,.2) !important;
-}
-.modal-head{
+  position:sticky;
+  top:0;
+  padding:14px 14px 10px;
   background: var(--bg-header) !important;
-  color: var(--text-main) !important;
-  border-bottom: 1px solid rgba(0,0,0,.10) !important;
-}
-.modal-body{
-  background: transparent !important;
-  color: var(--text-main) !important;
-}
-/* si el texto del detalle está en <pre> o <code> */
-.modal-body pre,
-.modal-body code{
-  background: rgba(0,0,0,.05) !important;
-  color: var(--text-main) !important;
-}
-/* =========================
-   MODAL (DETALLE) - LIGHT FIX
-   ========================= */
-
-/* fondo detrás del modal */
-#modalBack{
-  background: rgba(0,0,0,.25) !important;
+  border-bottom:1px solid rgba(17,24,39,.10);
 }
 
-/* caja del modal */
-#modalBack .modal{
-  background: var(--bg-tarjeta) !important;
-  color: var(--texto-principal) !important;
-  border: 1px solid rgba(0,0,0,.12) !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25) !important;
+/* título */
+#modalBack #mTitulo{
+  margin:0;
+  font-size:16px;
 }
 
-/* header del modal (class="cabeza modal") */
-#modalBack .cabeza.modal{
-  background: var(--bg-header) !important;
-  color: var(--texto-principal) !important;
-  border-bottom: 1px solid rgba(0,0,0,.10) !important;
+/* acciones */
+#modalBack .acciones.modales{
+  display:flex;
+  gap:10px;
+  align-items:center;
 }
 
-/* cuerpo del modal (class="cuerpo modal") */
-#modalBack .cuerpo.modal{
+/* botones del modal (por id) */
+#btnCopiarRP{
+  padding:10px 14px;
+  border-radius:999px;
+  border:none;
+  background:var(--acento);
+  color:#fff;
+  cursor:pointer;
+}
+#btnCopiarRP:hover{ filter:brightness(.98); }
+
+#btnCerrar{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--borde);
+  background:#fff;
+  cursor:pointer;
+}
+#btnCerrar:hover{ background:#f9fafb; }
+
+/* cuerpo */
+#modalBack #mContenido.cuerpo.modal{
+  padding:14px 14px 18px;
   background: transparent !important;
   color: var(--texto-principal) !important;
 }
 
-/* todo el contenido interno */
+/* texto interno */
 #modalBack #mContenido,
 #modalBack #mContenido *{
   color: var(--texto-principal) !important;
 }
 
-/* si tienes <pre>/<code> */
+/* listas dentro del modal */
+#modalBack ul{ margin:8px 0 12px 18px; }
+#modalBack li{ margin:6px 0; }
+
+/* bloques tipo "RP" si hay pre/code */
 #modalBack pre,
 #modalBack code{
-  background: rgba(0,0,0,.06) !important;
+  background: rgba(17,24,39,.06) !important;
   color: var(--texto-principal) !important;
+  border-radius:12px;
+  padding:10px 12px;
+  overflow:auto;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px){
+  .top{ padding:14px 14px 10px; }
+  .wrap{ padding:12px 12px 24px; }
+  #modalBack .modal{ max-height: 86vh; }
 }
