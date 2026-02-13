@@ -187,4 +187,45 @@ header{ background:var(--bg-header); }
   background: rgba(0,0,0,.05) !important;
   color: var(--text-main) !important;
 }
+/* =========================
+   MODAL (DETALLE) - FIX
+   ========================= */
 
+/* fondo detrás del modal */
+.modal-back{
+  background: rgba(0,0,0,.35) !important;
+}
+
+/* caja del modal */
+.modal-back .modal{
+  background: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border: 1px solid rgba(0,0,0,.12) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25) !important;
+}
+
+/* CABECERA: class="cabeza modal"  (clases: .cabeza y .modal) */
+.modal-back .cabeza.modal{
+  background: var(--bg-header) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid rgba(0,0,0,.10) !important;
+}
+
+/* CUERPO: class="cuerpo modal" */
+.modal-back .cuerpo.modal{
+  background: transparent !important;
+  color: var(--text-main) !important;
+}
+
+/* textos dentro del contenido */
+#modalBack #mContenido,
+#modalBack #mContenido *{
+  color: var(--text-main) !important;
+}
+
+/* si hay <pre> o <code> (bloques) */
+#modalBack pre,
+#modalBack code{
+  background: rgba(0,0,0,.05) !important;
+  color: var(--text-main) !important;
+}
